@@ -53,7 +53,7 @@ class User(AbstractUser):
     )
 
     # Additional field to store a display name
-    display_name = models.CharField(max_length=50, unique=True)
+    display_name = models.CharField(max_length=50, unique=True, null=True, blank=True)
 
     # Field to store the date and time when the account was created
     created_at = models.DateTimeField(auto_now_add=True)
