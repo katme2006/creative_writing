@@ -14,12 +14,20 @@ function Login({ onLoginSuccess }) {
       });
       const data = await response.json();
       if (response.ok) {
-        onLoginSuccess(data.token); // Pass the token to the handler
+        // Save the token to local storage
+        localStorage.setItem('token', data.token);
+
+        // Pass the token up to the parent component if needed
+        if (onLoginSuccess) {
+          onLoginSuccess(data.token);
+        }
       } else {
         console.error('Login failed', data);
+        // You might want to show an error message to the user here
       }
     } catch (error) {
       console.error('Network error:', error);
+      // You might want to show an error message to the user here
     }
   };
 
