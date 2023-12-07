@@ -17,24 +17,36 @@ function Login({ onLoginSuccess }) {
         // Save the token to local storage
         localStorage.setItem('token', data.token);
 
-        // Pass the token up to the parent component if needed
+        // Pass the token and email up to the parent (nav)
         if (onLoginSuccess) {
-          onLoginSuccess(data.token);
+          onLoginSuccess(data.token, email);
         }
       } else {
         console.error('Login failed', data);
-        // You might want to show an error message to the user here
+        // add something that displays this to the user
       }
     } catch (error) {
       console.error('Network error:', error);
-      // You might want to show an error message to the user here
+      // add something that displays this to the user
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email"
+        required
+      />
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+        required
+      />
       <button type="submit">Login</button>
     </form>
   );

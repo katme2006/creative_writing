@@ -16,7 +16,7 @@ const BioEditor = ({ userToken, initialBio }) => {
 
   const saveBio = async () => {
     try {
-      // Sanitize the bio content before sending it
+      // Sanitize the bio content before sending it - quill is rich text so this comes in as HTML - clean in front with DOM Purify and back with Bleach
       const cleanBio = DOMPurify.sanitize(bio);
 
       const response = await fetch('http://localhost:8000/api/v1/user_profile/update-profile/', {
@@ -32,12 +32,12 @@ const BioEditor = ({ userToken, initialBio }) => {
         const data = await response.json();
         alert('Bio updated successfully');
       } else {
-        // Handle non-200 responses
+       
         try {
           const errorData = await response.json();
           alert(`Failed to update bio: ${errorData.detail || 'Unknown error'}`);
         } catch (jsonError) {
-          // This block handles cases where the response is not in JSON format
+          // debugger -  handles cases where the response is not in JSON format
           const text = await response.text();
           console.error('Response not JSON:', text);
           alert('Failed to update bio: The server responded with a non-JSON reply');

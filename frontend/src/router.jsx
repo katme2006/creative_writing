@@ -1,31 +1,29 @@
-// In AppRouter.jsx
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import Signup from './pages/Signup_Page';
+import { Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import Signup from './pages/Signup_Page'; // Assuming this is the correct path to your Signup component
 import Login from './pages/Login_Page';
 import MyProfile from './pages/My_Profile_Page';
-import EditProfilePage from './pages/EditProfilePage'; // Assume you have this component
+import EditProfilePage from './pages/EditProfilePage';
 
-const AppRouter = ({ isLoggedIn, onLoginSuccess, onLogout }) => {
-  return (
-    <Switch>
-      {!isLoggedIn ? (
-        <>
-          <Route path="/signup" render={() => <Signup onSignupSuccess={onLoginSuccess} />} />
-          <Route path="/login" render={() => <Login onLoginSuccess={onLoginSuccess} />} />
-          {/* Add routes for public components */}
-        </>
-      ) : (
-        <>
-          <Route path="/my-profile" component={MyProfile} />
-          <Route path="/edit-profile" component={EditProfilePage} />
-          {/* Add routes for protected components */}
-          {/* Logout functionality can be integrated into the Navbar or Header component */}
-        </>
-      )}
-      {/* Add a default route for home or a 404 page */}
-    </Switch>
-  );
-};
+const AppRouter = ({ isLoggedIn, userToken, onLoginSuccess, onSignupSuccess, onLogout }) => {
+    return (
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          {!isLoggedIn && (
+            <>
+              <Route path="/signup" element={<Signup onSignupSuccess={onSignupSuccess} />} />
+              <Route path="/login" element={<Login onLoginSuccess={onLoginSuccess} />} />
+            </>
+          )}
+          {isLoggedIn && (
+            <>
+              <Route path="/my-profile" element={<MyProfile userToken={userToken} />} />
+              <Route path="/edit-profile" element={<EditProfilePage userToken={userToken} />} />
+            </>
+          )}
+        </Routes>
+      );
+    };
 
 export default AppRouter;
