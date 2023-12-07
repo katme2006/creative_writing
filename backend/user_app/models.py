@@ -7,7 +7,6 @@ class CustomUserManager(BaseUserManager):
 
     
     def create_user(self, email, password=None):
-     
         if not email:
             raise ValueError(_('The Email must be set'))
 
@@ -22,8 +21,6 @@ class CustomUserManager(BaseUserManager):
 
         # Save the user object to the database
         user.save(using=self._db)
-
-        # Return the created user object
         return user
 
 

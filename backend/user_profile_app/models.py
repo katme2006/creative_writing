@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from user_app.models import User  # Adjust this import based on your project's structure
+from user_app.models import User  
 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
