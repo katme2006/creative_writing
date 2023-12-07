@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import BioEditor from '../components/BioForm';
+import { useNavigate } from 'react-router-dom'; 
 
 const EditProfilePage = ({ userToken }) => {
   const [bio, setBio] = useState('');
   const [profilePicture, setProfilePicture] = useState(null);
   const [interests, setInterests] = useState('');
   const [favoriteBooks, setFavoriteBooks] = useState('');
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     // Fetch the user's profile data
@@ -60,6 +62,7 @@ const EditProfilePage = ({ userToken }) => {
 
       if (response.ok) {
         alert('Profile updated successfully');
+        navigate('/my-profile');
       } else {
         alert('Failed to update profile');
       }

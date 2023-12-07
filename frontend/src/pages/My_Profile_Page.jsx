@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DOMPurify from 'dompurify';
+import { Link } from 'react-router-dom';
 
 const MyProfile = () => {
   const [profileData, setProfileData] = useState({});
@@ -51,12 +52,14 @@ const MyProfile = () => {
 
   return (
     <div>
-      <h1>My Profile</h1>
-      {profile_picture && <img src={profile_picture} alt="Profile" />}
-      <div dangerouslySetInnerHTML={{ __html: sanitizedBio }} />
-      <p><strong>Interests:</strong> {interests || 'Not specified'}</p>
-      <p><strong>Favorite Books:</strong> {favorite_books || 'Not specified'}</p>
-    </div>
+    <h1>My Profile</h1>
+    {profile_picture && <img src={profile_picture} alt="Profile" />}
+    <div dangerouslySetInnerHTML={{ __html: sanitizedBio }} />
+    <p><strong>Interests:</strong> {interests || 'Not specified'}</p>
+    <p><strong>Favorite Books:</strong> {favorite_books || 'Not specified'}</p>
+
+    <Link to="/edit-profile">Edit Profile</Link>
+  </div>
   );
 };
 
