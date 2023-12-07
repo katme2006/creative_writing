@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import Signup from './pages/Signup_Page'; // Assuming this is the correct path to your Signup component
+import Signup from './pages/Signup_Page'; 
 import Login from './pages/Login_Page';
 import MyProfile from './pages/My_Profile_Page';
 import EditProfilePage from './pages/EditProfilePage';

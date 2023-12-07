@@ -3,10 +3,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import AppRouter from './router';
 import NavBar from './components/Navbar';
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userToken, setUserToken] = useState(null);
-  const [userEmail, setUserEmail] = useState(''); // Added state for userEmail
+  const [userEmail, setUserEmail] = useState(''); 
 
   useEffect(() => {
     // Check for token and email in local storage
@@ -17,18 +18,16 @@ function App() {
       setUserToken(token);
     }
     if (email) {
-      setUserEmail(email); // Set userEmail if available
+      setUserEmail(email); 
     }
   }, []);
 
   const handleLoginSuccess = (token, email) => {
-    // Store token and email in local storage
     localStorage.setItem('token', token);
     localStorage.setItem('email', email);
-    // Update state
     setIsLoggedIn(true);
     setUserToken(token);
-    setUserEmail(email); // Set userEmail state
+    setUserEmail(email); 
   };
 
   const handleSignupSuccess = (token, email) => {
@@ -36,16 +35,15 @@ function App() {
     localStorage.setItem('email', email);
     setIsLoggedIn(true);
     setUserToken(token);
-    setUserEmail(email); // Update userEmail state
+    setUserEmail(email); 
   };
 
   const handleLogout = () => {
-    // Clear local storage and state
     localStorage.removeItem('token');
     localStorage.removeItem('email');
     setIsLoggedIn(false);
     setUserToken(null);
-    setUserEmail(''); // Clear userEmail state
+    setUserEmail(''); 
   };
 
   return (
@@ -54,14 +52,16 @@ function App() {
         isLoggedIn={isLoggedIn}
         userEmail={userEmail}
         onLogout={handleLogout}
-        onSignupSuccess={handleSignupSuccess} // Pass the onSignupSuccess function
+        onSignupSuccess={handleSignupSuccess} 
+        onLoginSuccess={handleLoginSuccess}
       />
+     
       <AppRouter 
         isLoggedIn={isLoggedIn}
         userToken={userToken}
         userEmail={userEmail}
         onLoginSuccess={handleLoginSuccess}
-        onSignupSuccess={handleSignupSuccess} // Ensure this is passed down
+        onSignupSuccess={handleSignupSuccess} 
         onLogout={handleLogout}
       />
     </Router>

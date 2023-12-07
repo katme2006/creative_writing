@@ -14,7 +14,7 @@ function Login({ onLoginSuccess }) {
       });
       const data = await response.json();
       if (response.ok) {
-        // Save the token to local storage
+        // Saves the token to local storage
         localStorage.setItem('token', data.token);
 
         // Pass the token and email up to the parent (nav)

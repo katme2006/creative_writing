@@ -20,8 +20,8 @@ function Signup({ onSignupSuccess }) {
         if (data.token) {
           localStorage.setItem('token', data.token);
           localStorage.setItem('email', email);
-          onSignupSuccess(data.token, email); // Update app state
-          navigate('/'); // Navigate to the homepage or profile page
+          onSignupSuccess(data.token, email); 
+          navigate('/'); 
         }
       } else {
         console.error('Signup failed', data);

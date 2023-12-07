@@ -1,7 +1,5 @@
 import React from 'react';
-import Login from './Login_Page';
-import Signup from './Signup_Page';
-import LogoutButton from '../components/LogoutButton';
+
 const HomePage = () => {
   return (
     <div>

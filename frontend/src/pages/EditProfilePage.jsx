@@ -25,7 +25,7 @@ const EditProfilePage = ({ userToken }) => {
         setBio(data.bio);
         setInterests(data.interests);
         setFavoriteBooks(data.favorite_books);
-        // Note: We cannot set the profile picture file here
+        // Note: figure out profile picture later
       } catch (error) {
         console.error('Error fetching profile data:', error);
       }
@@ -75,11 +75,11 @@ const EditProfilePage = ({ userToken }) => {
   <form onSubmit={handleSubmit}>
     <BioEditor userToken={userToken} initialBio={bio} />
     
-    {/* Label for Profile Picture */}
+ 
     <label htmlFor="profilePicture">Profile Picture:</label>
     <input type="file" id="profilePicture" onChange={handleProfilePictureChange} />
 
-    {/* Label for Interests */}
+  
     <label htmlFor="interests">Interests:</label>
     <input 
       type="text" 
@@ -89,7 +89,7 @@ const EditProfilePage = ({ userToken }) => {
       placeholder="Interests" 
     />
 
-    {/* Label for Favorite Books */}
+
     <label htmlFor="favoriteBooks">Favorite Books:</label>
     <input 
       type="text" 

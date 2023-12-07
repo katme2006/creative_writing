@@ -5,13 +5,13 @@ import Login from '../pages/Login_Page';
 import Signup from '../pages/Signup_Page';
 import LogoutButton from '../components/LogoutButton';
 
-const NavBar = ({ isLoggedIn, onLogout, userEmail,onSignupSuccess }) => {
+const NavBar = ({ isLoggedIn, onLogout, userEmail,onSignupSuccess, onLoginSuccess }) => {
   return (
     <div>
       <h1>This is a navbar hooray</h1>
       {!isLoggedIn ? (
         <>
-          <Login />
+          <Login onLoginSuccess={onLoginSuccess}/>
           <Signup onSignupSuccess={onSignupSuccess} />
         </>
       ) : (

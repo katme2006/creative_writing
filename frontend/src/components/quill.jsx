@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // Import Quill's styles
+import 'react-quill/dist/quill.snow.css';
 
 const MyEditor = () => {
   const [editorHtml, setEditorHtml] = useState('');
-
+//straight from Quill tutorial
   // Define a custom toolbar
   const modules = {
     toolbar: [
