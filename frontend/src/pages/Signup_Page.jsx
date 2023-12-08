@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios'; // Import axios
 import { useNavigate } from 'react-router-dom';
 
 function Signup({ onSignupSuccess }) {
@@ -9,27 +10,33 @@ function Signup({ onSignupSuccess }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/api/v1/users/signup/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+      const response = await axios.post('http://localhost:8000/api/v1/users/signup/', {
+        email,
+        password
       });
-      const data = await response.json();
+
+      // With axios, the response data is directly available in response.data
+      const data = response.data;
       if (response.status === 201) {
         console.log('Signup successful', data);
         if (data.token) {
           localStorage.setItem('token', data.token);
           localStorage.setItem('email', email);
           onSignupSuccess(data.token, email); 
-          navigate('/'); 
+          navigate('/'); // Navigate to the home page after successful signup
         }
       } else {
         console.error('Signup failed', data);
         // Handle sign up error, possibly update UI with the error
       }
     } catch (error) {
-      console.error('Network error:', error);
-      
+      if (error.response) {
+        // Handle error response from server
+        console.error('Signup failed:', error.response.data);
+      } else {
+        // Handle network error
+        console.error('Network error:', error);
+      }
     }
   };
 

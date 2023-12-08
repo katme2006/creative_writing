@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import DOMPurify from 'dompurify';
+import axios from 'axios'; 
 
 const BioEditor = ({ userToken, initialBio }) => {
   const [bio, setBio] = useState('');
@@ -16,36 +17,30 @@ const BioEditor = ({ userToken, initialBio }) => {
 
   const saveBio = async () => {
     try {
-      // Sanitize the bio content before sending it - quill is rich text so this comes in as HTML - clean in front with DOM Purify and back with Bleach
+      // Sanitize the bio content before sending it
       const cleanBio = DOMPurify.sanitize(bio);
 
-      const response = await fetch('http://localhost:8000/api/v1/user_profile/update-profile/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${userToken}`,
-        },
-        body: JSON.stringify({ bio: cleanBio }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        alert('Bio updated successfully');
-      } else {
-       
-        try {
-          const errorData = await response.json();
-          alert(`Failed to update bio: ${errorData.detail || 'Unknown error'}`);
-        } catch (jsonError) {
-          // debugger -  handles cases where the response is not in JSON format
-          const text = await response.text();
-          console.error('Response not JSON:', text);
-          alert('Failed to update bio: The server responded with a non-JSON reply');
+      const response = await axios.post('http://localhost:8000/api/v1/user_profile/update-profile/', 
+        { bio: cleanBio }, 
+        { 
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${userToken}`,
+          }
         }
-      }
+      );
+
+      alert('Bio updated successfully');
     } catch (error) {
-      console.error('Error:', error);
-      alert('Error updating bio');
+      if (error.response) {
+        // Handle error response from server
+        console.error('Error:', error.response.data);
+        alert(`Failed to update bio: ${error.response.data.detail || 'Unknown error'}`);
+      } else {
+      
+        console.error('Network error:', error);
+        alert('Error updating bio');
+      }
     }
   };
 

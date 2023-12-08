@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios'; // Import axios
 
 function Login({ onLoginSuccess }) {
   const [email, setEmail] = useState('');
@@ -7,27 +8,26 @@ function Login({ onLoginSuccess }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/api/v1/users/login/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+      const response = await axios.post('http://localhost:8000/api/v1/users/login/', {
+        email, 
+        password
       });
-      const data = await response.json();
-      if (response.ok) {
-        // Saves the token to local storage
-        localStorage.setItem('token', data.token);
 
-        // Pass the token and email up to the parent (nav)
-        if (onLoginSuccess) {
-          onLoginSuccess(data.token, email);
-        }
-      } else {
-        console.error('Login failed', data);
-        // add something that displays this to the user
+      const data = response.data;
+      localStorage.setItem('token', data.token); // Saves the token to local storage
+      if (onLoginSuccess) {
+        onLoginSuccess(data.token, email); // Pass the token and email up to the parent (nav)
       }
     } catch (error) {
-      console.error('Network error:', error);
-      // add something that displays this to the user
+      if (error.response) {
+        console.error('Login failed:', error.response.data);
+      } else if (error.request) {
+     
+        console.error('Network error:', error.request);
+      } else {
+        console.error('Error:', error.message);
+      }
+
     }
   };
 
