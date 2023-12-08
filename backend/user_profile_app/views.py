@@ -29,7 +29,7 @@ class UpdateUserProfileView(APIView):
         profile.favorite_books = request.data.get('favorite_books', profile.favorite_books)
         profile.save()
 
-        serializer = UserProfileSerializer(profile)
+        serializer = UserProfileSerializer(profile, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class GetUserProfileView(APIView):
@@ -39,7 +39,7 @@ class GetUserProfileView(APIView):
         user = request.user
         try:
             profile = UserProfile.objects.get(user=user)
-            serializer = UserProfileSerializer(profile)
+            serializer = UserProfileSerializer(profile, context={'request': request})
             return Response(serializer.data)
         except UserProfile.DoesNotExist:
             return Response({'error': 'UserProfile not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -48,7 +48,7 @@ class PublicUserProfileView(APIView):
     def get(self, request, user_id, *args, **kwargs):
         try:
             profile = UserProfile.objects.get(user__id=user_id)
-            serializer = UserProfileSerializer(profile)
+            serializer = UserProfileSerializer(profile, context={'request': request})
             return Response(serializer.data)
         except UserProfile.DoesNotExist:
             return Response({'error': 'UserProfile not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -60,7 +60,7 @@ class MyProfileView(APIView):
         user = request.user
         try:
             profile = UserProfile.objects.get(user=user)
-            serializer = UserProfileSerializer(profile)
+            serializer = UserProfileSerializer(profile, context={'request': request})
             return Response(serializer.data)
         except UserProfile.DoesNotExist:
             return Response({'error': 'UserProfile not found'}, status=status.HTTP_404_NOT_FOUND)

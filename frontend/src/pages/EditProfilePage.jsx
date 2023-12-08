@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import BioEditor from '../components/BioForm';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 const EditProfilePage = ({ userToken }) => {
   const [bio, setBio] = useState('');
   const [profilePicture, setProfilePicture] = useState(null);
   const [interests, setInterests] = useState('');
   const [favoriteBooks, setFavoriteBooks] = useState('');
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch the user's profile data
     const fetchProfileData = async () => {
       try {
         const response = await fetch('http://localhost:8000/api/v1/user_profile/my-profile/', {
@@ -27,7 +26,10 @@ const EditProfilePage = ({ userToken }) => {
         setBio(data.bio);
         setInterests(data.interests);
         setFavoriteBooks(data.favorite_books);
-        // Note: figure out profile picture later
+   
+        if (data.profile_picture) {
+          setProfilePicture(data.profile_picture);
+        }
       } catch (error) {
         console.error('Error fetching profile data:', error);
       }
@@ -45,7 +47,7 @@ const EditProfilePage = ({ userToken }) => {
 
     const formData = new FormData();
     formData.append('bio', bio);
-    if (profilePicture) {
+    if (profilePicture && typeof profilePicture === 'object') {
       formData.append('profile_picture', profilePicture);
     }
     formData.append('interests', interests);
@@ -74,36 +76,33 @@ const EditProfilePage = ({ userToken }) => {
 
   return (
     <div>
-   <h1>Edit My Profile</h1>
-  <form onSubmit={handleSubmit}>
-    <BioEditor userToken={userToken} initialBio={bio} />
-    
- 
-    <label htmlFor="profilePicture">Profile Picture:</label>
-    <input type="file" id="profilePicture" onChange={handleProfilePictureChange} />
+      <h1>Edit My Profile</h1>
+      <form onSubmit={handleSubmit}>
+        <BioEditor userToken={userToken} initialBio={bio} />
+        
+        <label htmlFor="profilePicture">Profile Picture:</label>
+        <input type="file" id="profilePicture" onChange={handleProfilePictureChange} />
+        
+        <label htmlFor="interests">Interests:</label>
+        <input 
+          type="text" 
+          id="interests" 
+          value={interests} 
+          onChange={(e) => setInterests(e.target.value)} 
+          placeholder="Interests" 
+        />
 
-  
-    <label htmlFor="interests">Interests:</label>
-    <input 
-      type="text" 
-      id="interests" 
-      value={interests} 
-      onChange={(e) => setInterests(e.target.value)} 
-      placeholder="Interests" 
-    />
+        <label htmlFor="favoriteBooks">Favorite Books:</label>
+        <input 
+          type="text" 
+          id="favoriteBooks" 
+          value={favoriteBooks} 
+          onChange={(e) => setFavoriteBooks(e.target.value)} 
+          placeholder="Favorite Books" 
+        />
 
-
-    <label htmlFor="favoriteBooks">Favorite Books:</label>
-    <input 
-      type="text" 
-      id="favoriteBooks" 
-      value={favoriteBooks} 
-      onChange={(e) => setFavoriteBooks(e.target.value)} 
-      placeholder="Favorite Books" 
-    />
-
-    <button type="submit">Save Changes</button>
-  </form>
+        <button type="submit">Save Changes</button>
+      </form>
     </div>
   );
 };
