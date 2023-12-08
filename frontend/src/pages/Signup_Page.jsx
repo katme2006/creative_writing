@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Import axios
+import axios from 'axios'; 
 import { useNavigate } from 'react-router-dom';
 
 function Signup({ onSignupSuccess }) {
@@ -15,7 +15,7 @@ function Signup({ onSignupSuccess }) {
         password
       });
 
-      // With axios, the response data is directly available in response.data
+   
       const data = response.data;
       if (response.status === 201) {
         console.log('Signup successful', data);
@@ -27,14 +27,14 @@ function Signup({ onSignupSuccess }) {
         }
       } else {
         console.error('Signup failed', data);
-        // Handle sign up error, possibly update UI with the error
+      
       }
     } catch (error) {
       if (error.response) {
-        // Handle error response from server
+        
         console.error('Signup failed:', error.response.data);
       } else {
-        // Handle network error
+        
         console.error('Network error:', error);
       }
     }
