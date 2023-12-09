@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from dotenv import dotenv_values
+from dotenv import dotenv_values,load_dotenv
 import os
+
+load_dotenv() 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,6 +25,7 @@ env = dotenv_values(".env")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.get("DJANGO_KEY")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'user_app',
     'user_profile_app',
+    'open_ai_app',
 ]
 
 MIDDLEWARE = [

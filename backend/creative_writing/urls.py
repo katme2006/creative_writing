@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/users/', include('user_app.urls')),
     path('api/v1/user_profile/', include('user_profile_app.urls')),
+    path('api/v1/generate-prompt/', include('open_ai_app.urls'))
 ]
 
 if settings.DEBUG:

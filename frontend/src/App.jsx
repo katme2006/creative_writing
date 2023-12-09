@@ -5,6 +5,7 @@ import './App.css';
 import AppRouter from './router';
 import NavBar from './components/Navbar';
 
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userToken, setUserToken] = useState(null);
