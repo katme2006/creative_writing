@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import BioEditor from '../components/BioForm';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,21 +13,17 @@ const EditProfilePage = ({ userToken }) => {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/v1/user_profile/my-profile/', {
+        const response = await axios.get('http://localhost:8000/api/v1/user_profile/my-profile/', {
           headers: {
             'Authorization': `Token ${userToken}`,
           },
         });
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch profile data');
-        }
-
-        const data = await response.json();
+        const data = response.data;
         setBio(data.bio);
         setInterests(data.interests);
         setFavoriteBooks(data.favorite_books);
-   
+        
         if (data.profile_picture) {
           setProfilePicture(data.profile_picture);
         }
@@ -54,15 +51,14 @@ const EditProfilePage = ({ userToken }) => {
     formData.append('favorite_books', favoriteBooks);
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/user_profile/update-profile/', {
-        method: 'POST',
+      const response = await axios.post('http://localhost:8000/api/v1/user_profile/update-profile/', formData, {
         headers: {
           'Authorization': `Token ${userToken}`,
+          'Content-Type': 'multipart/form-data',
         },
-        body: formData,
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
         alert('Profile updated successfully');
         navigate('/my-profile');
       } else {
@@ -88,7 +84,7 @@ const EditProfilePage = ({ userToken }) => {
           type="text" 
           id="interests" 
           value={interests} 
-          onChange={(e) => setInterests(e.target.value)} 
+          onChange={(event) => setInterests(event.target.value)} 
           placeholder="Interests" 
         />
 
@@ -97,7 +93,7 @@ const EditProfilePage = ({ userToken }) => {
           type="text" 
           id="favoriteBooks" 
           value={favoriteBooks} 
-          onChange={(e) => setFavoriteBooks(e.target.value)} 
+          onChange={(event) => setFavoriteBooks(event.target.value)} 
           placeholder="Favorite Books" 
         />
 
