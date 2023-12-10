@@ -11,6 +11,30 @@ const BioEditor = ({ userToken, initialBio }) => {
     setBio(initialBio);
   }, [initialBio]);
 
+  const modules = {
+    toolbar: [
+      [{ 'font': [] }],
+      [{size: []}],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{'list': 'ordered'}, {'list': 'bullet'}, 
+       {'indent': '-1'}, {'indent': '+1'}],
+      [],
+      ['clean']
+    ],
+    clipboard: {
+      // Toggle to add extra line breaks when pasting HTML:
+      matchVisual: false,
+    }
+  };
+
+  // Formats objects for setting up what to include in the toolbar
+  const formats = [
+    'header', 'font', 'size',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image',
+  ];
+
   const handleBioChange = (content, delta, source, editor) => {
     setBio(editor.getHTML());
   };
@@ -48,6 +72,8 @@ const BioEditor = ({ userToken, initialBio }) => {
     <div>
       <ReactQuill
         value={bio}
+        modules={modules}
+        formats={formats}
         onChange={handleBioChange}
         theme="snow"
       />
