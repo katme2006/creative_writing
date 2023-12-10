@@ -8,7 +8,7 @@ const NavBar = ({ isLoggedIn, onLogout, userEmail, onSignupSuccess, onLoginSucce
   return (
     <div>
       <h1>This is a navbar hooray</h1>
-      <Link to="/">Home</Link> {/* Link to the homepage */}
+      <Link to="/">Home</Link> 
       {!isLoggedIn ? (
         <>
           <Login onLoginSuccess={onLoginSuccess}/>

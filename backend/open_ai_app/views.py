@@ -45,7 +45,7 @@ class OpenAIView(APIView):
             'poetry': f'Create a creative writing prompt for a poem that includes the word "{random_word}": ',
             'character-development': f'Create a creative writing prompt or exercise for character development that includes the word "{random_word}": ',
             'dialogue-practice': f'Create a creative writing prompt for practicing dialogue that includes the word "{random_word}": ',
-            'setting-description': f'Create a creative writing prompt for establishing a setting that includes the word "{random_word}": ',
+            'setting-description': f'Create a creative writing prompt for establishing a setiing that includes the word "{random_word}": ',
             'flash-fiction': f'Create a creative writing prompt for a flash fiction story that includes the word "{random_word}": ',
             'world-building': f'Create a creative writing prompt for world-building that includes the word "{random_word}": ',
             'first-person-perspective': f'Create a creative writing prompt that requires writing in the first person and includes the word "{random_word}": ',
