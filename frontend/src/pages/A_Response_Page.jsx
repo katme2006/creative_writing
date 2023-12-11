@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 
 const DisplaySubmittedPrompt = ({ userToken }) => {
 
@@ -51,8 +52,11 @@ const DisplaySubmittedPrompt = ({ userToken }) => {
             {promptData && (
                 <div>
                     <p><strong>Prompt Text:</strong> {promptData.prompt_text}</p>
-                    <p><strong>Response Text:</strong> {promptData.response_text}</p>
-                    {/* Figure out how much info you want to display/how you want to display it */}
+                    <div>
+                        <strong>Response Text:</strong>
+                        {/* Using dangerouslySetInnerHTML to render the HTML content */}
+                        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(promptData.response_text) }} />
+                    </div>
                 </div>
             )}
         </div>
