@@ -13,7 +13,7 @@ const DisplayPrompt = ({ userToken }) => {
             try {
                 const response = await axios.post('http://localhost:8000/api/v1/generate-prompt/', {
                     category: category,
-                    input: '' // Optional: Add user input if needed
+                    input: ''
                 }, {
                     headers: {
                         'Authorization': `Bearer ${userToken}`
@@ -31,7 +31,7 @@ const DisplayPrompt = ({ userToken }) => {
     };
 
     const goBackToPromptList = () => {
-        navigate('/generate-prompt', { state: { showCategories: true } }); // Include the state to show categories
+        navigate('/generate-prompt'); // Corrected path to match the AppRouter
     };
 
     return (

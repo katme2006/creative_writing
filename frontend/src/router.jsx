@@ -1,4 +1,3 @@
-// AppRouter.jsx
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
@@ -9,16 +8,16 @@ import EditProfilePage from './pages/EditProfilePage';
 import PromptComponent from './components/PromptGenerator';
 import DisplayPrompt from './components/DisplayPrompt';
 import DisplayPromptWithResponse from './components/MemberPromptGenerator';
+import DisplaySubmittedPrompt from './pages/A_Response_Page';
 
 const AppRouter = ({ isLoggedIn, userToken, onLoginSuccess, onSignupSuccess, onLogout }) => {
     return (
         <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/generate-prompt" element={<PromptComponent userToken={userToken} />} />
-            {/* Conditional route for display prompt based on logged in status */}
             <Route path="/display-prompt" element={isLoggedIn ? <DisplayPromptWithResponse userToken={userToken} /> : <DisplayPrompt />} />
+            <Route path="/a-response-page/:promptId" element={<DisplaySubmittedPrompt userToken={userToken} />} />
 
-            {/* Routes available when user is not logged in */}
             {!isLoggedIn && (
                 <>
                     <Route path="/signup" element={<Signup onSignupSuccess={onSignupSuccess} />} />
@@ -26,7 +25,6 @@ const AppRouter = ({ isLoggedIn, userToken, onLoginSuccess, onSignupSuccess, onL
                 </>
             )}
 
-            {/* Routes available when user is logged in */}
             {isLoggedIn && (
                 <>
                     <Route path="/my-profile" element={<MyProfile userToken={userToken} />} />
