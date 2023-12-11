@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'user_app',
     'user_profile_app',
     'open_ai_app',
+    'response_app',
 ]
 
 MIDDLEWARE = [
