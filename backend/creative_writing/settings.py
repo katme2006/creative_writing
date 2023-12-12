@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'user_profile_app',
     'open_ai_app',
     'response_app',
+    'writing_collections',
 ]
 
 MIDDLEWARE = [

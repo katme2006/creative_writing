@@ -8,7 +8,8 @@ urlpatterns = [
     path('api/v1/users/', include('user_app.urls')),
     path('api/v1/user_profile/', include('user_profile_app.urls')),
     path('api/v1/generate-prompt/', include('open_ai_app.urls')),
-    path('api/v1/write/', include('response_app.urls'))
+    path('api/v1/write/', include('response_app.urls')),
+    path('api/v1/writing-collection/',include('writing_collections.urls'))
 ]
 
 if settings.DEBUG:

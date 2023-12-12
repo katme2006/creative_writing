@@ -23,7 +23,6 @@ const EditProfilePage = ({ userToken }) => {
         setBio(data.bio);
         setInterests(data.interests);
         setFavoriteBooks(data.favorite_books);
-        
         if (data.profile_picture) {
           setProfilePicture(data.profile_picture);
         }
@@ -74,8 +73,8 @@ const EditProfilePage = ({ userToken }) => {
     <div>
       <h1>Edit My Profile</h1>
       <form onSubmit={handleSubmit}>
-        <BioEditor userToken={userToken} initialBio={bio} />
-        
+        <BioEditor bio={bio} onBioChange={setBio} />
+
         <label htmlFor="profilePicture">Profile Picture:</label>
         <input type="file" id="profilePicture" onChange={handleProfilePictureChange} />
         
