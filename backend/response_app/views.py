@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import IndividualPrompt
 from .serializers import IndividualPromptSerializer
-
+from rest_framework.generics import ListAPIView
 
 class CreateIndividualPrompt(APIView):
     permission_classes = [IsAuthenticated]
@@ -35,3 +35,21 @@ class GetIndividualPromptView(APIView):
             return Response(serializer.data)
         except IndividualPrompt.DoesNotExist:
             return Response({'error': 'Individual prompt not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+    def delete(self, request, prompt_id):
+        try:
+            individual_prompt = IndividualPrompt.objects.get(id=prompt_id, user=request.user)
+            individual_prompt.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except IndividualPrompt.DoesNotExist:
+            return Response({'error': 'Individual prompt not found'}, status=status.HTTP_404_NOT_FOUND)
+
+class ListIndividualPromptsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Fetch all individual prompts for the logged-in user
+        user_prompts = IndividualPrompt.objects.filter(user=request.user).order_by('-created_at')
+        serializer = IndividualPromptSerializer(user_prompts, many=True)
+        # Return the serialized data
+        return Response(serializer.data)

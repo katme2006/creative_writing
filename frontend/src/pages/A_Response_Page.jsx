@@ -1,51 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 
 const DisplaySubmittedPrompt = ({ userToken }) => {
-
     const { promptId } = useParams();
+    const navigate = useNavigate();
     const [promptData, setPromptData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
 
     useEffect(() => {
-        // Function to fetch the prompt data from the backend
         const fetchPromptData = async () => {
             try {
-                // Making a GET request to the backend to get the prompt data
                 const response = await axios.get(`http://localhost:8000/api/v1/write/individual-prompt/${promptId}/`, {
-                    headers: { 'Authorization': `Bearer ${userToken}` }
+                    headers: { 'Authorization': `Token ${userToken}` }
                 });
 
-                // Setting the fetched data to state
                 setPromptData(response.data);
                 setIsLoading(false);
             } catch (err) {
-              
                 setError(`Failed to fetch prompt data: ${err}`);
                 setIsLoading(false);
             }
         };
 
-        // Calling the fetch function if promptId is available
         if (promptId) {
             fetchPromptData();
         }
-    }, [userToken, promptId]); // Dependencies for the useEffect hook
+    }, [userToken, promptId]);
 
-    // Display a loading message while data is being fetched
+    const deletePrompt = async () => {
+        try {
+            await axios.delete(`http://localhost:8000/api/v1/write/individual-prompt/${promptId}/`, {
+                headers: { 'Authorization': `Token ${userToken}` }
+            });
+            navigate('/'); // Navigate back to the homepage
+        } catch (error) {
+            console.error('Error deleting prompt:', error.response?.data || error.message);
+        }
+    };
+
     if (isLoading) {
         return <div>Loading...</div>;
     }
 
-    // Display an error message if there was an error fetching data
     if (error) {
         return <div>Error: {error}</div>;
     }
 
-    // Rendering the fetched prompt and response data
     return (
         <div>
             <h2>Submitted Prompt Details</h2>
@@ -54,11 +57,11 @@ const DisplaySubmittedPrompt = ({ userToken }) => {
                     <p><strong>Prompt Text:</strong> {promptData.prompt_text}</p>
                     <div>
                         <strong>Response Text:</strong>
-                        {/* Using dangerouslySetInnerHTML to render the HTML content */}
                         <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(promptData.response_text) }} />
                     </div>
                 </div>
             )}
+            <button onClick={deletePrompt}>Delete Prompt</button>
         </div>
     );
 };

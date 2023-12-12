@@ -5,26 +5,17 @@ import './App.css';
 import AppRouter from './router';
 import NavBar from './components/Navbar';
 
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userToken, setUserToken] = useState(null);
   const [userEmail, setUserEmail] = useState('');
 
-  // Check for token and email in local storage and set up Axios interceptor
+  // Set up Axios interceptor to add authorization header
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const email = localStorage.getItem('email');
-    if (token) {
-      setIsLoggedIn(true);
-      setUserToken(token);
-    }
-    if (email) {
-      setUserEmail(email);
-    }
-
-    // Axios interceptor to add authorization header
-    const axiosInterceptor = axios.interceptors.request.use(config => {
+    // Set up the Axios interceptor only once, when the component mounts
+    const axiosInterceptor = axios.interceptors.request.use((config) => {
+      // Fetch the token each time a request is made to ensure it's current
+      const token = localStorage.getItem('token');
       if (token) {
         config.headers.Authorization = `Token ${token}`;
       } else {
@@ -37,7 +28,22 @@ function App() {
     return () => {
       axios.interceptors.request.eject(axiosInterceptor);
     };
-  }, [userToken]);
+  }, []); // Empty dependency array to set up the interceptor only once
+
+  // Check for token and email in local storage when component mounts
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const email = localStorage.getItem('email');
+
+    if (token) {
+      setIsLoggedIn(true);
+      setUserToken(token);
+    }
+
+    if (email) {
+      setUserEmail(email);
+    }
+  }, []);
 
   const handleLoginSuccess = (token, email) => {
     localStorage.setItem('token', token);
@@ -69,16 +75,15 @@ function App() {
         isLoggedIn={isLoggedIn}
         userEmail={userEmail}
         onLogout={handleLogout}
-        onSignupSuccess={handleSignupSuccess} 
+        onSignupSuccess={handleSignupSuccess}
         onLoginSuccess={handleLoginSuccess}
       />
-     
       <AppRouter 
         isLoggedIn={isLoggedIn}
         userToken={userToken}
         userEmail={userEmail}
         onLoginSuccess={handleLoginSuccess}
-        onSignupSuccess={handleSignupSuccess} 
+        onSignupSuccess={handleSignupSuccess}
         onLogout={handleLogout}
       />
     </Router>

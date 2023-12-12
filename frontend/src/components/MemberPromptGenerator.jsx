@@ -9,6 +9,7 @@ const DisplayPromptWithResponse = ({ userToken }) => {
     const navigate = useNavigate();
     const { generatedText, category } = location.state || { generatedText: 'No prompt generated.', category: null };
     const [userResponse, setUserResponse] = useState('');
+    const [title, setTitle] = useState(''); // State for the response title
 
     // Configuration for ReactQuill toolbar
     const modules = {
@@ -41,7 +42,6 @@ const DisplayPromptWithResponse = ({ userToken }) => {
             }, {
                 headers: { 'Authorization': `Bearer ${userToken}` }
             });
-
             navigate('/display-prompt', { replace: true, state: { generatedText: response.data.generated_text, category: category } });
         } catch (error) {
             console.error('Error regenerating prompt:', error.response?.data?.error || error.message);
@@ -51,11 +51,12 @@ const DisplayPromptWithResponse = ({ userToken }) => {
     // Function to handle submission of the response
     const handleSubmitResponse = async () => {
         const promptData = {
+            title, // Include the title in the data sent to the server
             prompt_text: generatedText,
             response_text: userResponse,
-            is_timed: false, // Assume is_timed is false for simplicity
-            time_taken: null, // Logic for this is not implemented
-            genre: category // Assuming 'category' maps to 'genre' in your model
+            is_timed: false,
+            time_taken: null,
+            genre: category
         };
     
         try {
@@ -65,7 +66,6 @@ const DisplayPromptWithResponse = ({ userToken }) => {
                 { headers: { 'Authorization': `Bearer ${userToken}` } }
             );
     
-            // Log the entire response object - figure out what's breaking here
             console.log('Response from server:', response);
             console.log('Data received:', response.data);
     
@@ -87,6 +87,13 @@ const DisplayPromptWithResponse = ({ userToken }) => {
                 <p>{generatedText}</p>
             </div>
             <div style={{ marginBottom: '20px' }}>
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Enter a title for your response"
+                    style={{ width: '100%', marginBottom: '10px' }}
+                />
                 <button onClick={regeneratePrompt}>Regenerate Prompt</button>
                 <ReactQuill
                     theme="snow"

@@ -13,7 +13,7 @@ import DisplaySubmittedPrompt from './pages/A_Response_Page';
 const AppRouter = ({ isLoggedIn, userToken, onLoginSuccess, onSignupSuccess, onLogout }) => {
     return (
         <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage userToken={userToken} />} />
             <Route path="/generate-prompt" element={<PromptComponent userToken={userToken} />} />
             <Route path="/display-prompt" element={isLoggedIn ? <DisplayPromptWithResponse userToken={userToken} /> : <DisplayPrompt />} />
             <Route path="/a-response-page/:promptId" element={<DisplaySubmittedPrompt userToken={userToken} />} />
