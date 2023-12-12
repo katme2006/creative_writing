@@ -21,3 +21,13 @@ class CreateWritingCollectionView(APIView):
         else:
             # If the data is not valid, return a response with the error messages
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ListWritingCollectionsView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        collections = WritingCollection.objects.filter(user=request.user)
+        serializer = WritingCollectionSerializer(collections, many=True)
+        return Response(serializer.data)
