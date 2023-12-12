@@ -41,6 +41,10 @@ const DisplaySubmittedPrompt = ({ userToken }) => {
         }
     };
 
+    const handleEditClick = () => {
+        navigate(`/edit-response/${promptId}`); // Navigate to the EditResponse component
+    };
+
     if (isLoading) {
         return <div>Loading...</div>;
     }
@@ -62,6 +66,7 @@ const DisplaySubmittedPrompt = ({ userToken }) => {
                 </div>
             )}
             <button onClick={deletePrompt}>Delete Prompt</button>
+            <button onClick={handleEditClick}>Edit</button>
         </div>
     );
 };

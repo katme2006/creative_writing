@@ -36,6 +36,18 @@ class GetIndividualPromptView(APIView):
         except IndividualPrompt.DoesNotExist:
             return Response({'error': 'Individual prompt not found'}, status=status.HTTP_404_NOT_FOUND)
         
+    def put(self, request, prompt_id):
+        try:
+            individual_prompt = IndividualPrompt.objects.get(id=prompt_id, user=request.user)
+            serializer = IndividualPromptSerializer(individual_prompt, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except IndividualPrompt.DoesNotExist:
+            return Response({'error': 'Individual prompt not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        
     def delete(self, request, prompt_id):
         try:
             individual_prompt = IndividualPrompt.objects.get(id=prompt_id, user=request.user)

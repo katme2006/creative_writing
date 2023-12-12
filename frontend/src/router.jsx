@@ -9,6 +9,7 @@ import PromptComponent from './components/PromptGenerator';
 import DisplayPrompt from './components/DisplayPrompt';
 import DisplayPromptWithResponse from './components/MemberPromptGenerator';
 import DisplaySubmittedPrompt from './pages/A_Response_Page';
+import EditResponse from './components/EditResponsePage';
 
 const AppRouter = ({ isLoggedIn, userToken, onLoginSuccess, onSignupSuccess, onLogout }) => {
     return (
@@ -17,6 +18,7 @@ const AppRouter = ({ isLoggedIn, userToken, onLoginSuccess, onSignupSuccess, onL
             <Route path="/generate-prompt" element={<PromptComponent userToken={userToken} />} />
             <Route path="/display-prompt" element={isLoggedIn ? <DisplayPromptWithResponse userToken={userToken} /> : <DisplayPrompt />} />
             <Route path="/a-response-page/:promptId" element={<DisplaySubmittedPrompt userToken={userToken} />} />
+            <Route path="/edit-response/:responseId" element={<EditResponse userToken={userToken} />} /> {/* Add this line for editing responses */}
 
             {!isLoggedIn && (
                 <>
