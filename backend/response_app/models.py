@@ -12,8 +12,16 @@ class IndividualPrompt(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
     title = models.CharField(max_length=255, blank=True, null=True)
+    writing_collection = models.ForeignKey(
+        'writing_collections.WritingCollection', 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True
+    )
+
     def __str__(self):
-        return f"Prompt: {self.prompt_text[:50]}..."  # Show first 50 characters of prompt?? Let see how this looks.
+        collection_str = f" in Collection: {self.writing_collection.collection_title}" if self.writing_collection else ""
+        return f"Prompt: {self.prompt_text[:50]}...{collection_str}"
 
     class Meta:
         verbose_name = 'Individual Prompt'

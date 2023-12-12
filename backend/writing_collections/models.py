@@ -9,7 +9,7 @@ class WritingCollection(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     private = models.BooleanField(default=False)
-    color = models.CharField(max_length=7)  # Assuming this is a HEX color code
+    color = models.CharField(max_length=7, default='#138746')  # Assuming this is a HEX color code
     
     def save(self, *args, **kwargs):
         if not self.id:  # If creating a new instance

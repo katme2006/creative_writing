@@ -6,6 +6,7 @@ class WritingCollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = WritingCollection
         fields = '__all__'
+        extra_kwargs = {'user': {'read_only': True}}
 
     def validate_color(self, value):
         # Validate color field

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; 
 
 const RecentCollectionsList = ({ userToken }) => {
   const [collections, setCollections] = useState([]);
@@ -51,6 +52,8 @@ const RecentCollectionsList = ({ userToken }) => {
           </li>
         ))}
       </ul>
+      {/* Add a Link at the bottom of your list */}
+      <Link to="/all-collections" className="view-all-collections-btn">View All Collections</Link>
     </div>
   );
 };

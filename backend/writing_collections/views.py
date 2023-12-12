@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import WritingCollection
 from .serializers import WritingCollectionSerializer
+from django.http import JsonResponse
 
 class CreateWritingCollectionView(APIView):
     authentication_classes = [TokenAuthentication]
@@ -19,9 +20,11 @@ class CreateWritingCollectionView(APIView):
             serializer.save(user=user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            # If the data is not valid, return a response with the error messages
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+            # Log the errors and the data
+            print("Data received:", request.data)
+            print("Errors:", serializer.errors)
+            # Return a response with the error messages
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ListWritingCollectionsView(APIView):
     authentication_classes = [TokenAuthentication]
