@@ -3,7 +3,7 @@
 import React from 'react';
 import PromptComponent from '../components/PromptGenerator';
 import ViewAllResponses from '../components/View_All_Responses';
-import WritingCollectionsList from './View_All_Collections';
+import RecentCollectionsList from '../components/Display_Collections';
 
 const HomePage = ({ userToken }) => {
   return (
@@ -12,7 +12,7 @@ const HomePage = ({ userToken }) => {
       <p>This page will include a basic generator with no additional features, and a product introduction/explanation</p>
       <PromptComponent userToken={userToken} />
       <ViewAllResponses userToken={userToken} />
-      <WritingCollectionsList userToken={userToken}/>
+      <RecentCollectionsList userToken={userToken}/>
     </div>
   );
 };

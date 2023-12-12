@@ -31,3 +31,12 @@ class ListWritingCollectionsView(APIView):
         collections = WritingCollection.objects.filter(user=request.user)
         serializer = WritingCollectionSerializer(collections, many=True)
         return Response(serializer.data)
+    
+class ListRecentCollectionsView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user_collections = WritingCollection.objects.filter(user=request.user).order_by('-updated_at')[:10]
+        serializer = WritingCollectionSerializer(user_collections, many=True)
+        return Response(serializer.data)
