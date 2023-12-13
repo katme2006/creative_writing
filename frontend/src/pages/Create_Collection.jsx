@@ -1,28 +1,26 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const CollectionCreateForm = ({ userToken }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post(
         'http://localhost:8000/api/v1/writing-collection/create/',
-        {
-          collection_title: title,
-          collection_description: description,
-        },
-        {
-          headers: { Authorization: `Token ${userToken}` },
-        }
+        { collection_title: title, collection_description: description },
+        { headers: { Authorization: `Token ${userToken}` } }
       );
       console.log('Collection created:', response.data);
-      // Handle successful creation (e.g., redirect or clear form)
+      // Navigate to the new collection's detail page
+      navigate(`/collection/${response.data.id}`);
     } catch (error) {
       console.error('Error creating collection:', error);
-      // Handle errors (e.g., show error message)
+
     }
   };
 
