@@ -47,12 +47,14 @@ const RecentCollectionsList = ({ userToken }) => {
       <ul>
         {collections.map(collection => (
           <li key={collection.id}>
-            <h3>{collection.collection_title}</h3>
-            <p>{collection.collection_description}</p>
+            <Link to={`/collection/${collection.id}`}>
+              <h3>{collection.collection_title}</h3>
+              <p>{collection.collection_description}</p>
+            </Link>
           </li>
         ))}
       </ul>
-      {/* Add a Link at the bottom of your list */}
+      <Link to="/create-collection" className="create-new-collection-btn">Create New Collection</Link>
       <Link to="/all-collections" className="view-all-collections-btn">View All Collections</Link>
     </div>
   );

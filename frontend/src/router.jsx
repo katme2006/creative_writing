@@ -12,6 +12,8 @@ import DisplaySubmittedPrompt from './pages/A_Response_Page';
 import EditResponse from './components/EditResponsePage';
 import RecentCollectionsList from './components/Display_Collections';
 import WritingCollectionsList from './pages/View_All_Collections'
+import CollectionCreateForm from './pages/Create_Collection';
+import CollectionDetail from './pages/Collection_Detail';
 
 const AppRouter = ({ isLoggedIn, userToken, onLoginSuccess, onSignupSuccess, onLogout }) => {
     return (
@@ -23,6 +25,8 @@ const AppRouter = ({ isLoggedIn, userToken, onLoginSuccess, onSignupSuccess, onL
             <Route path="/edit-response/:responseId" element={<EditResponse userToken={userToken} />} /> {/* Add this line for editing responses */}
             <Route path="/recent-collections" element={<RecentCollectionsList userToken={userToken} />} />
             <Route path="/all-collections" element={<WritingCollectionsList userToken={userToken} />} />
+            <Route path="/create-collection" element={<CollectionCreateForm userToken={userToken} />} />
+            <Route path="/collection/:collectionId" element={<CollectionDetail userToken={userToken} />} />
             {!isLoggedIn && (
                 <>
                     <Route path="/signup" element={<Signup onSignupSuccess={onSignupSuccess} />} />

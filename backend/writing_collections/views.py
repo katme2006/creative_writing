@@ -6,6 +6,7 @@ from rest_framework import status
 from .models import WritingCollection
 from .serializers import WritingCollectionSerializer
 from django.http import JsonResponse
+from .serializers import WritingCollectionDetailSerializer
 
 class CreateWritingCollectionView(APIView):
     authentication_classes = [TokenAuthentication]
@@ -43,3 +44,13 @@ class ListRecentCollectionsView(APIView):
         user_collections = WritingCollection.objects.filter(user=request.user).order_by('-updated_at')[:10]
         serializer = WritingCollectionSerializer(user_collections, many=True)
         return Response(serializer.data)
+
+
+class WritingCollectionDetailView(APIView):
+    def get(self, request, collection_id):
+        try:
+            collection = WritingCollection.objects.get(id=collection_id, user=request.user)
+            serializer = WritingCollectionDetailSerializer(collection)
+            return Response(serializer.data)
+        except WritingCollection.DoesNotExist:
+            return Response({'error': 'Collection not found'}, status=status.HTTP_404_NOT_FOUND)

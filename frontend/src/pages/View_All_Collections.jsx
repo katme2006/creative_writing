@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const WritingCollectionsList = ({ userToken }) => {
   const [collections, setCollections] = useState([]);
@@ -43,11 +44,16 @@ const WritingCollectionsList = ({ userToken }) => {
   return (
     <div>
       <h1>My Writing Collections</h1>
+      
+      <Link to="/create-collection" className="create-collection-btn">Create New Collection</Link>
       <ul>
         {collections.map(collection => (
           <li key={collection.id}>
-            <h3>{collection.collection_title}</h3>
-            <p>{collection.collection_description}</p>
+            {/* Wrap collection details with a Link to the CollectionDetail component */}
+            <Link to={`/collection/${collection.id}`}>
+              <h3>{collection.collection_title}</h3>
+              <p>{collection.collection_description}</p>
+            </Link>
           </li>
         ))}
       </ul>

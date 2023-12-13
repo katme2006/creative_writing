@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from .models import IndividualPrompt
 from .serializers import IndividualPromptSerializer
 from rest_framework.generics import ListAPIView
+from writing_collections.models import WritingCollection
 
 class CreateIndividualPrompt(APIView):
     permission_classes = [IsAuthenticated]
@@ -65,3 +66,26 @@ class ListIndividualPromptsView(APIView):
         serializer = IndividualPromptSerializer(user_prompts, many=True)
         # Return the serialized data
         return Response(serializer.data)
+    
+
+
+class AddPromptToCollectionView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, prompt_id):
+        user = request.user
+        try:
+            prompt = IndividualPrompt.objects.get(id=prompt_id, user=user)
+            collection_id = request.data.get('collection_id')
+            collection = WritingCollection.objects.get(id=collection_id, user=user)
+
+            prompt.writing_collection = collection
+            prompt.save()
+
+            serializer = IndividualPromptSerializer(prompt)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except IndividualPrompt.DoesNotExist:
+            return Response({'error': 'Prompt not found'}, status=status.HTTP_404_NOT_FOUND)
+        except WritingCollection.DoesNotExist:
+            return Response({'error': 'Collection not found'}, status=status.HTTP_404_NOT_FOUND)

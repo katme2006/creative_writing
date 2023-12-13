@@ -4,7 +4,7 @@ import React from 'react';
 import PromptComponent from '../components/PromptGenerator';
 import ViewAllResponses from '../components/View_All_Responses';
 import RecentCollectionsList from '../components/Display_Collections';
-import CollectionCreateForm from './Create_Collection';
+
 
 const HomePage = ({ userToken }) => {
   return (
@@ -14,7 +14,7 @@ const HomePage = ({ userToken }) => {
       <PromptComponent userToken={userToken} />
       <ViewAllResponses userToken={userToken} />
       <RecentCollectionsList userToken={userToken}/>
-      <CollectionCreateForm userToken={userToken}/>
+  
     </div>
   );
 };
