@@ -70,3 +70,14 @@ class UpdateWritingCollectionView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class DeleteWritingCollectionView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, collection_id):
+        try:
+            collection = WritingCollection.objects.get(id=collection_id, user=request.user)
+            collection.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except WritingCollection.DoesNotExist:
+            return Response({'error': 'Collection not found'}, status=status.HTTP_404_NOT_FOUND)

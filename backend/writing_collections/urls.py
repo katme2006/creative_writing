@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CreateWritingCollectionView, ListWritingCollectionsView, ListRecentCollectionsView, WritingCollectionDetailView, UpdateWritingCollectionView
+from .views import CreateWritingCollectionView, ListWritingCollectionsView, ListRecentCollectionsView, WritingCollectionDetailView, UpdateWritingCollectionView, DeleteWritingCollectionView
 
 urlpatterns = [
     path('create/', CreateWritingCollectionView.as_view(), name='create_writing_collection'),
@@ -7,4 +7,5 @@ urlpatterns = [
     path('collections/recent/', ListRecentCollectionsView.as_view(), name='list-recent-collections'),
     path('collection/<int:collection_id>/', WritingCollectionDetailView.as_view(), name='collection-detail'),
     path('collection/<int:collection_id>/update/', UpdateWritingCollectionView.as_view(), name='update-writing-collection'),
+     path('collection/delete/<int:collection_id>/', DeleteWritingCollectionView.as_view(), name='delete-collection'),
 ]
