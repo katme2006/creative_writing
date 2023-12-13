@@ -34,7 +34,7 @@ const ViewAllResponses = ({ userToken }) => {
     }, [userToken]);
 
     if (!userToken) {
-        return <div>Please log in to view responses.</div>;
+        return <div></div>;
     }
 
     if (isLoading) {

@@ -1,4 +1,3 @@
-// DisplayPrompt.jsx
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -31,8 +30,10 @@ const DisplayPrompt = ({ userToken }) => {
     };
 
     const goBackToPromptList = () => {
-        navigate('/prompt-generator'); 
+        navigate('/', { state: { showCategories: true } });
     };
+
+
 
     return (
         <div>

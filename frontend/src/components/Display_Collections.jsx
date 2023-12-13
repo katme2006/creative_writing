@@ -30,7 +30,7 @@ const RecentCollectionsList = ({ userToken }) => {
   }, [userToken]);
 
   if (!userToken) {
-    return <div>Please log in to view collections.</div>;
+    return <div></div>;
   }
 
   if (isLoading) {

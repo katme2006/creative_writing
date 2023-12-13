@@ -43,6 +43,8 @@ const PromptComponent = ({ userToken }) => {
         }
     };
 
+
+
     return (
         <div>
             {!showCategories ? (

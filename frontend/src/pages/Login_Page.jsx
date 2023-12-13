@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Import axios
+import axios from 'axios'; 
+import { useNavigate } from 'react-router-dom';
 
 function Login({ onLoginSuccess }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,8 +18,9 @@ function Login({ onLoginSuccess }) {
       const data = response.data;
       localStorage.setItem('token', data.token); // Saves the token to local storage
       if (onLoginSuccess) {
-        onLoginSuccess(data.token, email); // Pass the token and email up to the parent (nav)
+        onLoginSuccess(data.token, email); 
       }
+      navigate('/'); 
     } catch (error) {
       if (error.response) {
         console.error('Login failed:', error.response.data);
