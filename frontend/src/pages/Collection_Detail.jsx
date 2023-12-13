@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const CollectionDetail = () => {
     const { collectionId } = useParams();
@@ -8,13 +8,13 @@ const CollectionDetail = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        const token = localStorage.getItem('token'); // Retrieve token from localStorage
-        if (!token) {
-            setError('User not logged in or token not found');
-            return;
-        }
-
         const fetchCollection = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                setError('User not logged in or token not found');
+                return;
+            }
+
             try {
                 const response = await axios.get(`http://localhost:8000/api/v1/writing-collection/collection/${collectionId}/`, {
                     headers: { 'Authorization': `Token ${token}` }
@@ -26,7 +26,12 @@ const CollectionDetail = () => {
         };
 
         fetchCollection();
-    }, [collectionId]); // Removed userToken from the dependency array
+    }, [collectionId]);
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    };
 
     if (error) {
         return <div>Error: {error}</div>;
@@ -35,11 +40,6 @@ const CollectionDetail = () => {
     if (!collection) {
         return <div>Loading...</div>;
     }
-
-    const formatDate = (dateString) => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
-    };
 
     return (
         <div>
@@ -51,7 +51,11 @@ const CollectionDetail = () => {
             <h3>Responses in this Collection:</h3>
             <ul>
                 {collection.prompts.map(prompt => (
-                    <li key={prompt.id}>{prompt.title || prompt.prompt_text}</li>
+                    <li key={prompt.id}>
+                        <Link to={`/prompt/${prompt.id}`}>
+                            {prompt.title || prompt.prompt_text}
+                        </Link>
+                    </li>
                 ))}
             </ul>
         </div>
