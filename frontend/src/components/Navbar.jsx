@@ -21,23 +21,18 @@ const NavBar = ({ isLoggedIn, onLogout, userEmail }) => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto"> 
-            <Nav.Link as={Link} to="/">
-              Home
-            </Nav.Link>
-            {!isLoggedIn && (
-              <>
-                <Nav.Link as={Link} to="/login">
-                  Login
-                </Nav.Link>
-                <Nav.Link as={Link} to="/signup">
-                  Sign Up
-                </Nav.Link>
-              </>
-            )}
-          </Nav>
-          {isLoggedIn && ( /* Right-aligned dropdown */
-            <Nav className="ms-auto"> {/* 'ms-auto' class pushes it to the right */}
+
+          {!isLoggedIn ? (
+            <Nav className="ms-auto"> 
+              <Nav.Link as={Link} to="/login">
+                Login
+              </Nav.Link>
+              <Nav.Link as={Link} to="/signup">
+                Sign Up
+              </Nav.Link>
+            </Nav>
+          ) : (
+            <Nav className="ms-auto">
               <NavDropdown title={userEmail} id="basic-nav-dropdown" alignright="true">
                 <NavDropdown.Item as={Link} to="/my-profile">
                   Your Profile
