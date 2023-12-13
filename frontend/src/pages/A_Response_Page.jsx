@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 
-const DisplaySubmittedPrompt = ({ userToken }) => {
+const DisplaySubmittedPrompt = () => {
     const { promptId } = useParams();
     const navigate = useNavigate();
     const [promptData, setPromptData] = useState(null);
@@ -12,14 +12,22 @@ const DisplaySubmittedPrompt = ({ userToken }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
 
-    // Fetch the prompt data
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            setError('User not logged in or token not found');
+            return;
+        }
+
         const fetchPromptData = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/api/v1/write/individual-prompt/${promptId}/`, {
-                    headers: { 'Authorization': `Token ${userToken}` }
+                    headers: { 'Authorization': `Token ${token}` }
                 });
                 setPromptData(response.data);
+                if (response.data.writing_collection) {
+                    setSelectedCollection(response.data.writing_collection.id);
+                }
             } catch (err) {
                 setError(`Failed to fetch prompt data: ${err}`);
             } finally {
@@ -27,11 +35,10 @@ const DisplaySubmittedPrompt = ({ userToken }) => {
             }
         };
 
-        // Fetch the user's writing collections
         const fetchCollections = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/api/v1/writing-collection/collections/', {
-                    headers: { 'Authorization': `Token ${userToken}` }
+                    headers: { 'Authorization': `Token ${token}` }
                 });
                 setCollections(response.data);
             } catch (err) {
@@ -43,7 +50,8 @@ const DisplaySubmittedPrompt = ({ userToken }) => {
             fetchPromptData();
             fetchCollections();
         }
-    }, [userToken, promptId]);
+    }, [promptId]);
+
 
     // Delete the current prompt
     const deletePrompt = async () => {
