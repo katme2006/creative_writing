@@ -29,7 +29,8 @@ const AppRouter = ({ isLoggedIn, userToken, onLoginSuccess, onSignupSuccess, onL
             <Route path="/create-collection" element={<CollectionCreateForm userToken={userToken} />} />
             <Route path="/collection/:collectionId" element={<CollectionDetail userToken={userToken} />} />
             <Route path="/prompt/:promptId" element={<DisplaySubmittedPrompt userToken={userToken} />} />
-            <Route path="/collection/edit/:collectionId" element={<EditCollectionPage />} />
+            <Route path="/edit-collection/:collectionId" element={<EditCollectionPage />} />
+
             {!isLoggedIn && (
                 <>
                     <Route path="/signup" element={<Signup onSignupSuccess={onSignupSuccess} />} />

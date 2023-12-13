@@ -54,3 +54,19 @@ class WritingCollectionDetailView(APIView):
             return Response(serializer.data)
         except WritingCollection.DoesNotExist:
             return Response({'error': 'Collection not found'}, status=status.HTTP_404_NOT_FOUND)
+
+class UpdateWritingCollectionView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, collection_id):
+        try:
+            collection = WritingCollection.objects.get(id=collection_id, user=request.user)
+        except WritingCollection.DoesNotExist:
+            return Response({'error': 'Collection not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = WritingCollectionSerializer(collection, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

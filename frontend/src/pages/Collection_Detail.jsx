@@ -48,6 +48,11 @@ const CollectionDetail = () => {
             <p>Created on: {formatDate(collection.created_at)}</p>
             <p>Last updated: {formatDate(collection.updated_at)}</p>
 
+            {/* Edit Collection Button */}
+            <Link to={`/edit-collection/${collectionId}`} className="edit-collection-btn">
+                Edit Collection
+            </Link>
+
             <h3>Responses in this Collection:</h3>
             <ul>
                 {collection.prompts.map(prompt => (
