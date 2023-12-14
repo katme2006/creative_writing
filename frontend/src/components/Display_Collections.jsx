@@ -73,9 +73,9 @@ const RecentCollectionsList = ({ userToken }) => {
       <h1>My Recent Writing Collections</h1>
   
   
-        <div class="container-with-arrows">
-          <div class="arrow left-arrow">←</div>
-          <div class="d-flex flex-wrap justify-content-start">
+        <div>
+
+          <div className="d-flex flex-wrap justify-content-start">
           {collections.map(collection => (
           <Card key={collection.id} style={{ width: '18rem' }} className="m-2">
             <Card.Body>
@@ -89,7 +89,7 @@ const RecentCollectionsList = ({ userToken }) => {
         ))}
 
           </div>
-          <div class="arrow right-arrow">→</div>
+    
         </div>
    
       <Link to="/create-collection" className="btn btn-success mt-3">Create New Collection</Link>

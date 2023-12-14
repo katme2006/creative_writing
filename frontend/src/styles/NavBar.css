@@ -1,0 +1,11 @@
+/* Media query for mobile devices */
+@media screen and (max-width: 992px) {
+    .navbar-collapse {
+      position: absolute;
+      top: 56px; /* Adjust based on the height of your Navbar */
+      right: 0;
+      left: 0;
+      z-index: 1000; /* Ensure dropdown is on top of other content */
+      background-color: rgb(245, 245, 245); /* Background color for dropdown menu, change as needed */
+    }
+  }
