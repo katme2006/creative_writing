@@ -1,0 +1,7 @@
+.card {
+    width: 18rem;
+    height: 18rem;
+    /* Add overflow hidden to hide overflowing content */
+    overflow: hidden;
+  }
+  
