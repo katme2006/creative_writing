@@ -67,8 +67,9 @@ useEffect(() => {
         <Navbar.Collapse id="basic-navbar-nav">
           {!isLoggedIn ? (
             <Nav className="ms-auto">
-              <Nav.Link as={Link} to="/login" onClick={handleNavLinkClick}>Login</Nav.Link>
-              <Nav.Link as={Link} to="/signup" onClick={handleNavLinkClick}>Sign Up</Nav.Link>
+              <Nav.Link as={Link} to="/login" onClick={handleNavLinkClick} className="bordered-link">Login</Nav.Link>
+      <Nav.Link as={Link} to="/signup" onClick={handleNavLinkClick} className="bordered-link">Sign Up</Nav.Link>
+  
             </Nav>
           ) : (
             <Nav className="ms-auto">
