@@ -5,6 +5,7 @@ import './App.css';
 import AppRouter from './router';
 import NavBar from './components/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'normalize.css/normalize.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

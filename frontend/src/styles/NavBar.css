@@ -9,3 +9,53 @@
       background-color: rgb(245, 245, 245); /* Background color for dropdown menu, change as needed */
     }
   }
+
+
+.logo{
+    font-family: playfair-display, serif;
+    font-weight: 900;
+    
+  }
+
+
+  /* background of nav bar */
+.bg-body-tertiary{
+    z-index: 10 !important;
+    background-color: white !important;
+    border-bottom:  gray 2px solid;
+}
+
+
+/* Styles that will only apply to desktop screens (above 992px in width) */
+@media (min-width: 992px) {
+    .dropdown-menu {
+    margin-top: 1.4vh !important;
+    border-radius: 0px !important;
+    background-color: white;
+    border: 1px solid gray; 
+    width: 200rem !important;
+    flex-direction: column;
+    padding: 0;
+    margin:0;
+    }
+  
+    #basic-nav-dropdown {
+        font-weight: 600;
+    }
+ 
+    .nav-link.dropdown-toggle {
+        margin-left: 1vw; 
+    }
+  
+    /* Styles for dropdown items */
+    .dropdown-item {
+    height: 6vh;
+    padding:4vh;
+    padding-top:3vh ;
+    }
+  }
+
+/*Creates a margin for the drop down arrow and text*/
+  .navbar .dropdown-toggle::after {
+    margin-left: 1vw; 
+  }

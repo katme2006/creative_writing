@@ -4,6 +4,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
+import '../styles/NavBar.css';
+
 
 const NavBar = ({ isLoggedIn, onLogout, userEmail }) => {
   const navigate = useNavigate();
@@ -52,9 +54,13 @@ useEffect(() => {
   };
 
   return (
+  
     <Navbar ref={navbarRef} expand="lg" className="bg-body-tertiary" fixed="top" expanded={expanded}>
       <Container>
-        <Navbar.Brand as={Link} to="/" onClick={handleNavLinkClick}>
+        <div>
+   
+        </div>
+        <Navbar.Brand className='logo' as={Link} to="/" onClick={handleNavLinkClick}>
           Write Now
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} />
@@ -68,17 +74,18 @@ useEffect(() => {
             <Nav className="ms-auto">
               {isMobile ? (
                 <>
+                
                   <Nav.Link as={Link} to="/my-profile" onClick={handleNavLinkClick}>Your Profile</Nav.Link>
                   <Nav.Link as={Link} to="/all-collections" onClick={handleNavLinkClick}>Collections</Nav.Link>
                   <Nav.Link href="#action/3.3" onClick={handleNavLinkClick}>Settings</Nav.Link>
                   <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                 </>
               ) : (
-                <NavDropdown title={userEmail} id="basic-nav-dropdown" alignRight="true">
+                <NavDropdown title={`Hello ${userEmail}`} id="basic-nav-dropdown" alignRight="true">
                   <NavDropdown.Item as={Link} to="/my-profile" onClick={handleNavLinkClick}>Your Profile</NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/all-collections" onClick={handleNavLinkClick}>Collections</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.3" onClick={handleNavLinkClick}>Settings</NavDropdown.Item>
-                  <NavDropdown.Divider />
+                  <NavDropdown.Divider style={{ margin: 0 }} />
                   <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
                 </NavDropdown>
               )}
@@ -87,6 +94,7 @@ useEffect(() => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+
   );
 };
 
