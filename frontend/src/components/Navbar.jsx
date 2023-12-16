@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import '../styles/NavBar.css';
+import Logo from '../assets/small_filled_log0.svg';
 
 
 const NavBar = ({ isLoggedIn, onLogout, userEmail }) => {
@@ -57,12 +58,18 @@ useEffect(() => {
   
     <Navbar ref={navbarRef} expand="lg" className="bg-body-tertiary" fixed="top" expanded={expanded}>
       <Container>
-        <div>
-   
-        </div>
+      <img
+            src={Logo}
+            width="30" // Set the logo width as desired
+            height="30" // Set the logo height as desired
+            className="d-inline-block align-top"
+            alt="Write Now Pen Nib Logo"
+            className = "penlogo"
+          />
         <Navbar.Brand className='logo' as={Link} to="/" onClick={handleNavLinkClick}>
           Write Now
         </Navbar.Brand>
+        
         <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} />
         <Navbar.Collapse id="basic-navbar-nav">
           {!isLoggedIn ? (
@@ -79,7 +86,8 @@ useEffect(() => {
                   <Nav.Link as={Link} to="/my-profile" onClick={handleNavLinkClick}>Your Profile</Nav.Link>
                   <Nav.Link as={Link} to="/all-collections" onClick={handleNavLinkClick}>Collections</Nav.Link>
                   <Nav.Link href="#action/3.3" onClick={handleNavLinkClick}>Settings</Nav.Link>
-                  <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                  
+                  <Nav.Link onClick={handleLogout} className='logout-item'>Logout</Nav.Link>
                 </>
               ) : (
                 <NavDropdown title={`Hello ${userEmail}`} id="basic-nav-dropdown" alignRight="true">

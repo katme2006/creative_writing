@@ -1,0 +1,13 @@
+.hero{
+    margin:0px;
+    display: flex;
+    border: 2px solid gray;
+}
+
+.left-hero{
+    width:50%;
+    display:flex;
+    flex-direction: column;
+    border: 2px red solid;
+    padding: 12vw;
+}

@@ -1,20 +1,10 @@
-/* Media query for mobile devices */
-@media screen and (max-width: 992px) {
-    .navbar-collapse {
-      position: absolute;
-      top: 56px; /* Adjust based on the height of your Navbar */
-      right: 0;
-      left: 0;
-      z-index: 1000; /* Ensure dropdown is on top of other content */
-      background-color: rgb(245, 245, 245); /* Background color for dropdown menu, change as needed */
-    }
-  }
+
 
 
 .logo{
     font-family: playfair-display, serif;
     font-weight: 900;
-    
+    margin: auto; 
   }
 
 
@@ -49,7 +39,6 @@
   
     /* Styles for dropdown items */
     .dropdown-item {
-
     padding:4vh;
     padding-top:4vh ;
     }
@@ -78,3 +67,56 @@
     color: #000; /* Example: change text color on hover */
   }
   
+  .navbar-toggler{
+    outline: none;
+    border: none;
+  }
+
+  /*Styling mobile hamburger*/
+  .navbar-toggler:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  
+
+/* .logout-item{
+    border-top: gray 1px solid;
+} */
+
+
+
+@media screen and (max-width: 992px) {
+ 
+
+    /* Add styles for dropdown items in mobile/tablet view */
+    .dropdown-item {
+        /* Example styles: */
+        background-color: #ececec; /* Light grey background */
+        color: #333; /* Darker text color */
+        padding: 10px 15px; /* Adjust padding */
+        border-bottom: 1px solid #ddd; /* Add a bottom border to each item */
+    }
+
+    /* Additional styles for the last dropdown item to remove the bottom border */
+    .dropdown-item:last-child {
+        border-bottom: none;
+    }
+    .bordered-link {
+        border: none; 
+        padding: 2vw 1.5vw!important; 
+        margin: 0 1vh ;
+        border-radius: 30px;
+        transition: all 0.3s ease; 
+      }
+      
+      .bordered-link:hover {
+        font-weight: 600;
+        background-color: #f8f9fa; /* Example: change background on hover */
+        color: #000; /* Example: change text color on hover */
+      }
+}
+
+
+.penlogo{
+    margin-right: .5vw;
+}
