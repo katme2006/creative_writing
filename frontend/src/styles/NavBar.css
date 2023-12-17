@@ -1,122 +1,127 @@
-
-
-
-.logo{
+.logo {
     font-family: playfair-display, serif;
     font-weight: 900;
-    margin: auto; 
+    /* border: 2px solid red; */
+    text-align: center;
+    
   }
 
-
-  /* background of nav bar */
-.bg-body-tertiary{
+  .penlogo {
+    margin-right: .5vw;
+    width: 35px; 
+    height: 35px; 
+   /* border: 2px solid red; */
+  }
+  
+  
+  .bg-body-tertiary {
     z-index: 10 !important;
     background-color: white !important;
-    border-bottom:  gray 2px solid;
-}
-
-
-/* Styles that will only apply to desktop screens (above 992px in width) */
-@media (min-width: 992px) {
+    border-bottom: gray 2px solid;
+  }
+  
+  /* Universal styles for navbar links */
+  .nav-link {
+    padding-top: 3vw;
+    
+  }
+  
+  /* Styles for desktop screens */
+  @media (min-width: 992px) {
     .dropdown-menu {
-    margin-top: 1.4vh !important;
-    border-radius: 0px !important;
-    background-color: white;
-    border: 1px solid gray; 
-    width: 200rem !important;
-    flex-direction: column;
-    padding: 0;
-    margin:0;
+      margin-top: 1.4vh !important;
+      border-radius: 0px !important;
+      background-color: white;
+      border: 1px solid gray;
+      width: 200rem !important;
+      flex-direction: column;
+      padding: 0;
+      margin-right: 20rem !important;
     }
   
     #basic-nav-dropdown {
-        font-weight: 600;
+      font-weight: 600;
+      display: flex !important;
+      width:20em;
+      /* border: 2px red solid; */
     }
- 
+  
     .nav-link.dropdown-toggle {
-        margin-left: 1vw; 
+      color: black;
     }
   
     /* Styles for dropdown items */
     .dropdown-item {
-    padding:4vh;
-    padding-top:4vh ;
+      padding: 4vh!important;
+      padding-top: 4vh;
     }
-  }
-
-/*Creates a margin for the drop down arrow and text*/
-  .navbar .dropdown-toggle::after {
-    margin-left: 1vw; 
-  }
-
-
-
-/*Sign Up and Login Buttons*/
-
-  .bordered-link {
-    border: 2px solid gray; 
-    padding: .7vw 1.5vw!important; 
-    margin: 0 1vh ;
-    border-radius: 30px;
-    transition: all 0.3s ease; 
-  }
   
-  .bordered-link:hover {
-    font-weight: 600;
-    background-color: #f8f9fa; /* Example: change background on hover */
-    color: #000; /* Example: change text color on hover */
-  }
-  
-  .navbar-toggler{
-    outline: none;
-    border: none;
-  }
-
-  /*Styling mobile hamburger*/
-  .navbar-toggler:focus {
-    outline: none;
-    box-shadow: none;
-  }
-  
-
-/* .logout-item{
-    border-top: gray 1px solid;
-} */
-
-
-
-@media screen and (max-width: 992px) {
- 
-
-    /* Add styles for dropdown items in mobile/tablet view */
-    .dropdown-item {
-        /* Example styles: */
-        background-color: #ececec; /* Light grey background */
-        color: #333; /* Darker text color */
-        padding: 10px 15px; /* Adjust padding */
-        border-bottom: 1px solid #ddd; /* Add a bottom border to each item */
-    }
-
-    /* Additional styles for the last dropdown item to remove the bottom border */
-    .dropdown-item:last-child {
-        border-bottom: none;
-    }
     .bordered-link {
-        border: none; 
-        padding: 2vw 1.5vw!important; 
-        margin: 0 1vh ;
-        border-radius: 30px;
-        transition: all 0.3s ease; 
-      }
-      
-      .bordered-link:hover {
-        font-weight: 600;
-        background-color: #f8f9fa; /* Example: change background on hover */
-        color: #000; /* Example: change text color on hover */
-      }
-}
+      border: 2px solid gray;
+      padding: .7vw 1.5vw!important;
+      margin: 0 1vh;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+  
+    .bordered-link:hover {
+      font-weight: 600;
+      background-color: #f8f9fa;
+      color: #000;
+    }
 
+    .top{
+        padding-top: 2vh;
+    }
+  }
+  
+  /* Margin for the dropdown arrow */
+  .navbar .dropdown-toggle::after {
+    margin-left: 1vw;
+  }
+  
+  /* Styles for mobile screens */
+  @media screen and (max-width: 992px) {
+    .dropdown-item {
+      background-color: #ececec;
+      color: #333;
+      padding: 30px 25px !important;
+      border-bottom: 1px solid #ddd;
+    }
+  
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
+  
+    .bordered-link {
+      border: none;
+      padding: 2vw 1.5vw!important;
+      margin: 0 1vh;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+  
+    .bordered-link:hover {
+      font-weight: 600;
+      background-color: #f8f9fa;
+      color: #000;
+    }
+    
+    .navbar-toggler {
+      outline: none;
+      border: none;
+    }
 
-.penlogo{
-    margin-right: .5vw;
-}
+    .navbar-toggler:focus {
+        outline: none!important;
+        border: none !important;
+      }
+
+      .nav-link {
+        font-size: 3vmax;
+        padding: 5vw ;
+        
+      }
+    
+  }
+  

@@ -1,12 +1,11 @@
-import React, { useState, useEffect,useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Container from 'react-bootstrap/Container';
-import '../styles/NavBar.css';
-import Logo from '../assets/small_filled_log0.svg';
-
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import Container from "react-bootstrap/Container";
+import "../styles/NavBar.css";
+import Logo from "../assets/small_filled_log0.svg";
 
 const NavBar = ({ isLoggedIn, onLogout, userEmail }) => {
   const navigate = useNavigate();
@@ -15,7 +14,7 @@ const NavBar = ({ isLoggedIn, onLogout, userEmail }) => {
   const navbarRef = useRef(null); // Reference to the navbar
   const handleLogout = () => {
     onLogout();
-    navigate('/');
+    navigate("/");
     setExpanded(false); // Collapse the navbar on logout
   };
 
@@ -24,28 +23,27 @@ const NavBar = ({ isLoggedIn, onLogout, userEmail }) => {
   };
 
   useEffect(() => {
-    window.addEventListener('resize', updateMedia);
-    return () => window.removeEventListener('resize', updateMedia);
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
   });
 
-// Function to handle outside clicks
+  // Function to handle outside clicks
   const handleClickOutside = (event) => {
-  if (navbarRef.current && !navbarRef.current.contains(event.target)) {
-    setExpanded(false);
-  }
-};
-
-
-useEffect(() => {
-  // Add event listener for outside clicks
-  document.addEventListener('mousedown', handleClickOutside);
-  window.addEventListener('resize', updateMedia);
-  return () => {
-    // Clean up the event listener
-    document.removeEventListener('mousedown', handleClickOutside);
-    window.removeEventListener('resize', updateMedia);
+    if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+      setExpanded(false);
+    }
   };
-}, []);
+
+  useEffect(() => {
+    // Add event listener for outside clicks
+    document.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener("resize", updateMedia);
+    return () => {
+      // Clean up the event listener
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("resize", updateMedia);
+    };
+  }, []);
 
   // Function to handle link click
   const handleNavLinkClick = () => {
@@ -55,47 +53,111 @@ useEffect(() => {
   };
 
   return (
-  
-    <Navbar ref={navbarRef} expand="lg" className="bg-body-tertiary" fixed="top" expanded={expanded}>
+    <Navbar
+      ref={navbarRef}
+      expand="lg"
+      className="bg-body-tertiary"
+      fixed="top"
+      expanded={expanded}
+    >
       <Container>
-      <img
-            src={Logo}
-            width="30" // Set the logo width as desired
-            height="30" // Set the logo height as desired
-            className="d-inline-block align-top"
-            alt="Write Now Pen Nib Logo"
-            className = "penlogo"
-          />
-        <Navbar.Brand className='logo' as={Link} to="/" onClick={handleNavLinkClick}>
+        <img
+          src={Logo}
+          width="35" // Set the logo width as desired
+          height="35" // Set the logo height as desired
+          className="d-inline-block align-top penlogo"
+          alt="Write Now Pen Nib Logo"
+        />
+        <Navbar.Brand
+          className="logo"
+          as={Link}
+          to="/"
+          onClick={handleNavLinkClick}
+        >
           Write Now
         </Navbar.Brand>
-        
-        <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} />
+
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          onClick={() => setExpanded(!expanded)}
+        />
         <Navbar.Collapse id="basic-navbar-nav">
           {!isLoggedIn ? (
             <Nav className="ms-auto">
-              <Nav.Link as={Link} to="/login" onClick={handleNavLinkClick} className="bordered-link">Login</Nav.Link>
-      <Nav.Link as={Link} to="/signup" onClick={handleNavLinkClick} className="bordered-link">Sign Up</Nav.Link>
-  
+              <Nav.Link
+                as={Link}
+                to="/login"
+                onClick={handleNavLinkClick}
+                className="bordered-link top"
+              >
+                Login
+              </Nav.Link>
+              <Nav.Link
+                as={Link}
+                to="/signup"
+                onClick={handleNavLinkClick}
+                className="bordered-link"
+              >
+                Sign Up
+              </Nav.Link>
             </Nav>
           ) : (
             <Nav className="ms-auto">
               {isMobile ? (
                 <>
-                
-                  <Nav.Link as={Link} to="/my-profile" onClick={handleNavLinkClick}>Your Profile</Nav.Link>
-                  <Nav.Link as={Link} to="/all-collections" onClick={handleNavLinkClick}>Collections</Nav.Link>
-                  <Nav.Link href="#action/3.3" onClick={handleNavLinkClick}>Settings</Nav.Link>
-                  
-                  <Nav.Link onClick={handleLogout} className='logout-item'>Logout</Nav.Link>
+                  <Nav.Link
+                    as={Link}
+                    to="/my-profile"
+                    onClick={handleNavLinkClick}
+                  >
+                    Your Profile
+                  </Nav.Link>
+                  <Nav.Link
+                    as={Link}
+                    to="/all-collections"
+                    onClick={handleNavLinkClick}
+                    className="top"
+                  >
+                    Collections
+                  </Nav.Link>
+                  <Nav.Link href="#action/3.3" onClick={handleNavLinkClick}>
+                    Settings
+                  </Nav.Link>
+
+                  <Nav.Link onClick={handleLogout} className="logout-item">
+                    Logout
+                  </Nav.Link>
                 </>
               ) : (
-                <NavDropdown title={`Hello ${userEmail}`} id="basic-nav-dropdown" alignRight="true">
-                  <NavDropdown.Item as={Link} to="/my-profile" onClick={handleNavLinkClick}>Your Profile</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/all-collections" onClick={handleNavLinkClick}>Collections</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3" onClick={handleNavLinkClick}>Settings</NavDropdown.Item>
+                <NavDropdown
+                  title={`Hello ${userEmail}`}
+                  id="basic-nav-dropdown"
+                  alignRight="true"
+                >
+                  <NavDropdown.Item
+                    as={Link}
+                    to="/my-profile"
+                    onClick={handleNavLinkClick}
+                  >
+                    Your Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    as={Link}
+                    to="/all-collections"
+                    onClick={handleNavLinkClick}
+                  >
+                    Collections
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    href="#action/3.3"
+                    onClick={handleNavLinkClick}
+                  >
+                    Settings
+                  </NavDropdown.Item>
                   <NavDropdown.Divider style={{ margin: 0 }} />
-                  <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                  <NavDropdown.Item onClick={handleLogout}>
+                    Logout
+                  </NavDropdown.Item>
                 </NavDropdown>
               )}
             </Nav>
@@ -103,7 +165,6 @@ useEffect(() => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-
   );
 };
 
