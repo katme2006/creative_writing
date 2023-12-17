@@ -2,6 +2,7 @@
     margin-top:8vh;
     display: flex;
     margin-bottom: 25vh;
+    
 }
 
 .left-hero{
@@ -12,12 +13,13 @@
     padding: 10vw;
     position: relative;
     height: 100%; /* Adjust as needed */
-    /* overflow: hidden; */
+ 
   }
   
 .right-hero{
     padding: 6vw;
     display: flex;
+    align-items: center;
     flex-direction: column;
 }
 
@@ -53,6 +55,12 @@
         flex-direction: column-reverse;
         /* border: 2px solid gray; */
         margin-bottom: 2vh;
+        justify-content: center;
+    }
+
+    .left-hero {
+        display: flex;
+        justify-content: center;
     }
   }
   

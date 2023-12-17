@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
+import '../styles/PromptComponentStyles.css'
 
 const PromptComponent = ({ userToken }) => {
     const navigate = useNavigate();
@@ -45,24 +46,20 @@ const PromptComponent = ({ userToken }) => {
 
 
 
-    return (
+     return (
         <div>
-            {!showCategories ? (
-                <button onClick={() => setShowCategories(true)}>Generate a Prompt</button>
-            ) : (
-                <>
-                    <h2>Choose a Category</h2>
-                    <ul>
-                        {categories.map(category => (
-                            <li key={category}>
-                                <button onClick={() => handleCategoryClick(category)}>
-                                    {category.replace('-', ' ').toUpperCase()}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </>
-            )}
+            <h2>Choose a Category</h2>
+            <div className='category-box'>
+                {!showCategories ? (
+                    <div className="category-item" onClick={() => setShowCategories(true)}>Generate a Prompt</div>
+                ) : (
+                    categories.map(category => (
+                        <div key={category} className="category-item" onClick={() => handleCategoryClick(category)}>
+                            {category.replace('-', ' ').toUpperCase()}
+                        </div>
+                    ))
+                )}
+            </div>
         </div>
     );
 };
