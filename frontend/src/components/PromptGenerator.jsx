@@ -1,14 +1,11 @@
-// PromptComponent.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
-import '../styles/PromptComponentStyles.css'
+import { useNavigate } from 'react-router-dom';
+import '../styles/PromptComponentStyles.css';
 
 const PromptComponent = ({ userToken }) => {
     const navigate = useNavigate();
-    const location = useLocation();
-    // Initialize showCategories based on the state passed in navigation
-    const [showCategories, setShowCategories] = useState(location.state?.showCategories || false);
+    const [selectedCategory, setSelectedCategory] = useState('');
 
     const categories = [
         'sci-fi', 'fantasy', 'horror', 'mystery-thriller', 'romance',
@@ -19,47 +16,43 @@ const PromptComponent = ({ userToken }) => {
         'plot-twists', 'genre-blending', 'emotional-writing'
     ];
 
-    useEffect(() => {
-        // If the state includes showCategories, update it accordingly
-        if (location.state?.showCategories) {
-            setShowCategories(true);
-        }
-    }, [location.state]);
+    const handleCategorySelect = (category) => {
+        setSelectedCategory(category);
+    };
 
-    const handleCategoryClick = async (category) => {
-        try {
-            const response = await axios.post('http://localhost:8000/api/v1/generate-prompt/', {
-                category: category,
-                input: ''  // Optional: Add user input if needed
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${userToken}`
-                }
-            });
+    const handleGeneratePrompt = async () => {
+        if (selectedCategory) {
+            try {
+                const response = await axios.post('http://localhost:8000/api/v1/generate-prompt/', {
+                    category: selectedCategory
+                }, {
+                    headers: { 'Authorization': `Bearer ${userToken}` }
+                });
 
-            // Navigate to the DisplayPrompt page with the generated text and category
-            navigate('/display-prompt', { state: { generatedText: response.data.generated_text, category: category } });
-        } catch (e) {
-            console.error('Failed to generate prompt:', e.response?.data?.error || e.message);
+                navigate('/display-prompt', { state: { generatedText: response.data.generated_text, category: selectedCategory } });
+            } catch (e) {
+                console.error('Failed to generate prompt:', e.response ? e.response.data ? e.response.data.error : e.response : e.message);
+            }
+        } else {
+            alert('Please select a category first.');
         }
     };
 
-
-
-     return (
+    return (
         <div>
             <h2>Choose a Category</h2>
             <div className='category-box'>
-                {!showCategories ? (
-                    <div className="category-item" onClick={() => setShowCategories(true)}>Generate a Prompt</div>
-                ) : (
-                    categories.map(category => (
-                        <div key={category} className="category-item" onClick={() => handleCategoryClick(category)}>
-                            {category.replace('-', ' ').toUpperCase()}
-                        </div>
-                    ))
-                )}
+                {categories.map(category => (
+                    <div key={category} 
+                         className={`category-item ${selectedCategory === category ? 'selected-category' : ''}`} 
+                         onClick={() => handleCategorySelect(category)}>
+                        {category.replace('-', ' ')}
+                    </div>
+                ))}
             </div>
+            <button onClick={handleGeneratePrompt} className="generate-prompt-button">
+                Generate Prompt
+            </button>
         </div>
     );
 };

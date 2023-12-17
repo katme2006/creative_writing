@@ -1,7 +1,7 @@
 .hero{
     margin-top:8vh;
     display: flex;
-    margin-bottom: 25vh;
+    margin-bottom: 1vh;
     
 }
 
@@ -12,7 +12,7 @@
     /* border: 2px red solid; */
     padding: 10vw;
     position: relative;
-    height: 100%; /* Adjust as needed */
+    height: 100%; 
  
   }
   
@@ -28,7 +28,7 @@
     right: 4;
     top: 0;
 
-    width: 140%;
+    width: 120%;
     height: auto;
     z-index: -100; 
     background-size: cover;
@@ -37,8 +37,7 @@
   .left-hero h1,
   .left-hero p {
     position: relative;
-    z-index: 1; /* Ensure text appears above the video */
-    /* Add additional styling for your text to make it readable over the video */
+    z-index: 1; 
   }
 /* Hide video on mobile sizes and show image */
 @media screen and (max-width: 992px) {
@@ -52,7 +51,7 @@
     .hero{
         margin-top:8vh;
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         /* border: 2px solid gray; */
         margin-bottom: 2vh;
         justify-content: center;

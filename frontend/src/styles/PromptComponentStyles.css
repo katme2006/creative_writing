@@ -6,3 +6,30 @@
     align-items: center;
     overflow-y: scroll;
 }
+
+
+.generate-prompt-button {
+    margin-top: 20px; 
+    padding: 10px 20px;
+    background-color: #4CAF50; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.generate-prompt-button:hover {
+    background-color: #45a049;
+}
+
+.category-item {
+    padding: 1vw;
+    width: 100%;
+    text-align: center;
+}
+
+.category-item.selected-category {
+    background-color: #4CAF50; /* Change the color when selected*/
+    color: white;
+}
